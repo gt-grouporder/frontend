@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button"
 
 
 const handleLogin = (username, password) => {
-  fetch('http://localhost:5173/', {
+  fetch('http://localhost:3000/', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
