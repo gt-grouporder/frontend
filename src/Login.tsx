@@ -3,10 +3,16 @@ import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/com
 import { Label } from "@/components/ui/label"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
-  
 
+const handleLogin = (username: string,  
+  password: string,  
+  setLoading: React.Dispatch<React.SetStateAction<boolean>>,  
+  setError: React.Dispatch<React.SetStateAction<string | null>>, 
+  setData: React.Dispatch<React.SetStateAction<any>>) => {
+  setLoading(true);
+  setError(null);
+  setData(null);
 
-const handleLogin = (username, password) => {
   fetch('http://localhost:3000/', {
     method: 'POST',
     headers: {
@@ -17,21 +23,28 @@ const handleLogin = (username, password) => {
     .then((response) => response.json()) 
     .then((data) => {
       if (data.ok) {
+        setData(data);  
         console.log('Login successful:', data);
       } else {
+        setError(data.message || 'Login failed');  
         console.error('Login failed:', data.message || 'Something went wrong');
       }
     })
     .catch((error) => {
+      setError('Error during login: ' + error.message);  
       console.error('Error during login:', error);
+    })
+    .finally(() => {
+      setLoading(false);  
     });
 };
-
-
 
 export default function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);  
+  const [data, setData] = useState(null);  
+  const [error, setError] = useState(null);       
 
   return (
     <Card className="mx-auto max-w-sm">
@@ -43,15 +56,35 @@ export default function Login() {
         <div className="space-y-4">
           <div className="space-y-2">
             <Label htmlFor="email">Email</Label>
-            <Input id="email" type="email" value={username} onChange={(e) => setUsername(e.target.value)} required />
+            <Input 
+              id="email" 
+              type="email" 
+              value={username} 
+              onChange={(e) => setUsername(e.target.value)} 
+              required 
+            />
           </div>
           <div className="space-y-2">
             <Label htmlFor="password">Password</Label>
-            <Input id="password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
+            <Input 
+              id="password" 
+              type="password" 
+              value={password} 
+              onChange={(e) => setPassword(e.target.value)} 
+              required 
+            />
           </div>
-          <Button type="submit" className="w-full" onClick={() => {handleLogin(username, password)}}>
-            Login
+          <Button 
+            type="submit" 
+            className="w-full" 
+            onClick={() => handleLogin(username, password, setLoading, setError, setData)} 
+            disabled={loading}  
+          >
+            {loading ? 'Logging in...' : 'Login'} 
           </Button>
+
+          {error && <div className="text-red-500 mt-2">{error}</div>}  
+          {data && <div className="text-green-500 mt-2">Login successful!</div>}  
         </div>
       </CardContent>
     </Card>
