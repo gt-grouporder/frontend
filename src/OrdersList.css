@@ -1,0 +1,64 @@
+.orders-title {
+    font-size: 2em;
+    font-weight: bold;
+    color: #0056a3; 
+    text-align: center;
+    margin-bottom: 20px;
+}
+  
+.orders-list {
+    list-style: none;
+    padding: 0;
+}
+
+/* white background for items */
+.order-item {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    padding: 10px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: transform 0.2s ease-in-out;
+}
+  
+.order-item:hover {
+    transform: scale(1.02);
+    background-color: #f0f0f0;
+}
+  
+.order-name {
+    font-size: 1.2em;
+    color: #333;
+}
+  
+.costco-logo {
+    width: 150px;
+    margin-bottom: 20px;
+}
+
+.invite-button {
+    background-color: #0056a3;
+    color: white;
+    font-size: 1.2em;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    margin-top: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    display: block; 
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.invite-button:hover {
+    background-color: #004085;
+}
+
+.invite-button:focus {
+    outline: none;
+}
