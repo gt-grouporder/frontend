@@ -5,14 +5,6 @@ import SignUp from './SignUp'
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import OrdersList from './OrdersList';
 
-//rendering list 
-const ORDER_DATA = [
-  { orderName: "order1"},
-  { orderName: "my_order"},
-  { orderName: "order2"},
-  { orderName: "order3"},
-  { orderName: "order4"},
-];
 
 function App() {
   const [count, setCount] = useState(0)
@@ -25,7 +17,7 @@ function App() {
           <Route index element={<Login />}/>
           <Route path="/Login" element={<Login />} />
           <Route path="/SignUp" element={<SignUp />} />
-          <Route path="/Orders" element={<OrdersList orders={ORDER_DATA} />} />
+          <Route path="/Orders" element={<OrdersList />} />
         </Routes>
       </BrowserRouter>
     </div>
