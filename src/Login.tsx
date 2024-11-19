@@ -3,6 +3,7 @@ import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/com
 import { Label } from "@/components/ui/label"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
+import { Navigate } from "react-router-dom";
 
 const handleLogin = (username: string,  
   password: string,  
@@ -13,22 +14,17 @@ const handleLogin = (username: string,
   setError(null);
   setData(null);
 
-  fetch('http://localhost:3000/', {
+  fetch('http://localhost:3000/api/login', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({ username, password }),
   })
-    .then((response) => response.json()) 
+    .then((response) => response.text()) 
     .then((data) => {
-      if (data.ok) {
-        setData(data);  
-        console.log('Login successful:', data);
-      } else {
-        setError(data.message || 'Login failed');  
-        console.error('Login failed:', data.message || 'Something went wrong');
-      }
+      setData(data)
+      localStorage.setItem("token", data)
     })
     .catch((error) => {
       setError('Error during login: ' + error.message);  
@@ -84,7 +80,7 @@ export default function Login() {
           </Button>
 
           {error && <div className="text-red-500 mt-2">{error}</div>}  
-          {data && <div className="text-green-500 mt-2">Login successful!</div>}  
+          {data && <Navigate to="/Orders"></Navigate>}  
         </div>
       </CardContent>
     </Card>
